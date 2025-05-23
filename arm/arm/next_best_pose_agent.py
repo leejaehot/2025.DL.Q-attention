@@ -412,6 +412,11 @@ class NextBestPoseAgent(Agent):
             act_res.info.update({
                 'rgb_crop': observations[0]
             })
+
+            #jclee edit
+            act_res.action = act_res.action.cpu()
+            act_res.info['q_values'] = act_res.info['q_values'].cpu()
+            act_res.observation_elements['front_pixel_coord'] = act_res.observation_elements['front_pixel_coord'].cpu()
             return act_res
 
     def update_summaries(self) -> List[Summary]:
@@ -444,9 +449,9 @@ class NextBestPoseAgent(Agent):
     def act_summaries(self) -> List[Summary]:
         summaries = [
             ImageSummary('%s/crops/act/rgb' % NAME,
-                         (self._act_crop_summaries[0] + 1.0) / 2.0),
+                         (self._act_crop_summaries[0].cpu() + 1.0) / 2.0), # jclee edit
             ImageSummary('%s/crops/act/point_cloud' % NAME,
-                         self._act_crop_summaries[1]),
+                         self._act_crop_summaries[1].cpu()), # jclee edit
         ]
         return summaries + self._qattention_agent.act_summaries()
 

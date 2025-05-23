@@ -8,3 +8,4 @@ venv
 nvidia-persistenced/
 results/
 rlight.egg-info
+save_demo_dir/

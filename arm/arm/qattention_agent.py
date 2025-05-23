@@ -211,7 +211,7 @@ class QAttentionAgent(Agent):
     def act_summaries(self) -> List[Summary]:
         return [
             ImageSummary('%s/Q_act' % NAME, QAttentionAgent.generate_heatmap(
-                self._act_qvalues.cpu(), ((self._rgb_observation + 1) / 2.0).cpu()))
+                self._act_qvalues.cpu(), ((self._rgb_observation + 1) / 2.0).cpu()).cpu()) # jclee edit
         ]
 
     def load_weights(self, savedir: str):

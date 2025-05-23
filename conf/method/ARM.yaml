@@ -1,5 +1,5 @@
 # @package _group_
-
+# python launch.py method=ARM rlbench.task=take_lid_off_saucepan framework.gpu=0
 name: 'ARM'
 activation: lrelu
 q_conf: True

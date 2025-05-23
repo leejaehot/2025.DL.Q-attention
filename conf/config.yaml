@@ -1,37 +1,37 @@
 rlbench:
-    task: take_lid_off_saucepan
-    demos: 10
-    demo_path: /my/demo/path
-    episode_length: 10
-    cameras: [front]
-    camera_resolution: [128, 128]
-    scene_bounds: [-0.3, -0.5, 0.6, 0.7, 0.5, 1.6]
+    task: take_lid_off_saucepan # 학습 태스크
+    demos: 10 # 학습 데모 수
+    demo_path: /home/jclee/workspace/src/ARM/save_demo_dir # 데모 저장 경로
+    episode_length: 10 # 에피소드 길이
+    cameras: [front] # 카메라 종류
+    camera_resolution: [128, 128] # 카메라 해상도
+    scene_bounds: [-0.3, -0.5, 0.6, 0.7, 0.5, 1.6] # 장면 경계
 
 replay:
-    batch_size: 128
-    timesteps: 1
-    prioritisation: True
-    use_disk: False
-    path: '/tmp/arm/replay'  # Only used when use_disk is True.
+    batch_size: 128 # 배치 크기
+    timesteps: 1 # 경험 수집 시간
+    prioritisation: True # 우선순위 기반 경험 샘플링 사용 여부
+    use_disk: False # 경험 저장 장치 사용 여부
+    path: '/tmp/arm_test/replay'  # Only used when use_disk is True.
 
 framework:
-    log_freq: 100
-    save_freq: 100
-    train_envs: 1
-    eval_envs: 1
-    replay_ratio: 128
-    transitions_before_train: 200
-    tensorboard_logging: True
-    csv_logging: True
-    training_iterations: 40000
-    gpu: 0
-    env_gpu: 0
-    logdir: '/tmp/arm_test/'
-    seeds: 1
+    log_freq: 100 # log 기록 주기 (몇 step 마다 출력할지)
+    save_freq: 100 # 모델 저장 주기 (몇 step 마다 저장할지)
+    train_envs: 1 # 학습 환경 수
+    eval_envs: 1 # 평가 환경 수
+    replay_ratio: 128 # 경험 리플레이 버퍼 크기
+    transitions_before_train: 200 # 학습 시작 전 경험 수집 횟수
+    tensorboard_logging: True # tensorboard 로깅 여부
+    csv_logging: True # csv 로깅 여부
+    training_iterations: 40000 # 총 학습 step
+    gpu: 0 # 학습 모델 사용 GPU
+    env_gpu: 0 # 환경 사용 GPU
+    logdir: '/tmp/arm_test/' # 로그 저장 경로
+    seeds: 1 # 학습 시 사용할 seed
 
 defaults:
-    - method: C2FARM
+    - method: C2FARM+QTE # 사용할 메서드
 
 hydra:
     run:
-        dir: ${framework.logdir}/${rlbench.task}/${method.name}
+        dir: ${framework.logdir}/${rlbench.task}/${method.name} # 로그 저장 경로

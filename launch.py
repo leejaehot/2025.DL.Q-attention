@@ -92,10 +92,10 @@ def _get_device(gpu):
 
 
 def run_seed(cfg: DictConfig, env, cams, train_device, env_device, seed) -> None:
-    train_envs = cfg.framework.train_envs
-    replay_ratio = None if cfg.framework.replay_ratio == 'None' else cfg.framework.replay_ratio
+    train_envs = cfg.framework.train_envs # 1
+    replay_ratio = None if cfg.framework.replay_ratio == 'None' else cfg.framework.replay_ratio # 128
     replay_split = [1]
-    replay_path = os.path.join(cfg.replay.path, cfg.rlbench.task, cfg.method.name, 'seed%d' % seed)
+    replay_path = os.path.join(cfg.replay.path, cfg.rlbench.task, cfg.method.name, 'seed%d' % seed) # '/tmp/arm/replay/take_lid_off_saucepan/C2FARM/seed0'
     action_min_max = None
 
     rg = RolloutGenerator()
@@ -284,12 +284,21 @@ def run_seed(cfg: DictConfig, env, cams, train_device, env_device, seed) -> None
     else:
         raise ValueError('Method %s does not exists.' % cfg.method.name)
 
+
+
+
+##############################################################################################
+
+
+
     wrapped_replays = [PyTorchReplayBuffer(r) for r in replays]
     stat_accum = SimpleAccumulator(eval_video_fps=30)
 
     cwd = os.getcwd()
     weightsdir = os.path.join(cwd, 'seed%d' % seed, 'weights')
     logdir = os.path.join(cwd, 'seed%d' % seed)
+
+    #import pdb;pdb.set_trace()
 
     if action_min_max is not None:
         # Needed if we want to run the agent again
@@ -321,6 +330,9 @@ def run_seed(cfg: DictConfig, env, cams, train_device, env_device, seed) -> None
         tensorboard_logging=cfg.framework.tensorboard_logging,
         csv_logging=cfg.framework.csv_logging)
     train_runner.start()
+    # sample time : replay buffer나 환경으로부터 경험 샘플링 시간
+    # step time : 이번 step에서 실제 network update에 걸린 평균 시간
+    # replay ratio : 환경 상호작용 1회에 대해 몇 번의 학습 step을 반복하는지(학습:환경 상호작용 비율, 일반적으로 off policy 관련)
     del train_runner
     del env_runner
     del agent
@@ -363,7 +375,7 @@ def main(cfg: DictConfig) -> None:
         time_in_state=True)
 
     cwd = os.getcwd()
-    logging.info('CWD:' + os.getcwd())
+    logging.info('CWD:' + os.getcwd()) # CWD:/tmp/arm_test/take_lid_off_saucepan/ARM
     existing_seeds = len(list(filter(lambda x: 'seed' in x, os.listdir(cwd))))
 
     for seed in range(existing_seeds, existing_seeds + cfg.framework.seeds):

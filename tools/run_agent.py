@@ -10,22 +10,27 @@ from rlbench.action_modes.arm_action_modes import EndEffectorPoseViaPlanning
 from rlbench.action_modes.gripper_action_modes import Discrete
 from rlbench.backend.utils import task_file_to_task_class
 
-from arm import c2farm, qte, lpr
+import sys
+sys.path.insert(0, '/home/jclee/workspace/src/ARM')
+from launch import _create_obs_config
+
+from arm import c2farm, qte, lpr, arm
 from arm.custom_rlbench_env import CustomRLBenchEnv
 from arm.lpr.trajectory_action_mode import TrajectoryActionMode
-from launch import _create_obs_config
 from tools.utils import RLBenchCinematic
+
+import os
+
 
 FREEZE_DURATION = 2
 FPS = 20
 
-flags.DEFINE_string('logdir', '/path/to/log/dir', 'weight dir.')
+flags.DEFINE_string('logdir', '/tmp/arm_test', 'weight dir.')
 flags.DEFINE_string('method', 'C2FARM', 'The method to run.')
 flags.DEFINE_string('task', 'take_lid_off_saucepan', 'The task to run.')
 flags.DEFINE_integer('episodes', 1, 'The number of episodes to run.')
 
 FLAGS = flags.FLAGS
-
 
 def _save_clips(clips, name):
     final_clip = concatenate_videoclips(clips)
@@ -33,7 +38,10 @@ def _save_clips(clips, name):
 
 
 def visualise(logdir, task, method):
-    config_path = os.path.join(logdir, task, method, '.hydra')
+    # Change working directory to the root of the project
+
+    
+    config_path = os.path.join(logdir, task, method, '.hydra', 'config.yaml')
     weights_path = os.path.join(logdir, task, method, 'seed0', 'weights')
 
     if not os.path.exists(config_path):
@@ -41,8 +49,12 @@ def visualise(logdir, task, method):
     if not os.path.exists(weights_path):
         raise ValueError('No weights in: ' + weights_path)
 
-    with initialize(config_path=os.path.relpath(config_path)):
-        cfg = compose(config_name="config")
+
+    # with initialize(config_path=os.path.relpath(config_path)):
+    #     cfg = compose(config_name="config")
+
+    cfg = OmegaConf.load(config_path)
+
     print(OmegaConf.to_yaml(cfg))
 
     cfg.rlbench.cameras = cfg.rlbench.cameras if isinstance(
@@ -68,6 +80,10 @@ def visualise(logdir, task, method):
 
     if cfg.method.name == 'C2FARM':
         agent = c2farm.launch_utils.create_agent(
+            cfg, env, cfg.rlbench.scene_bounds,
+            cfg.rlbench.camera_resolution)
+    elif cfg.method.name == 'ARM':
+        agent = arm.launch_utils.create_agent(
             cfg, env, cfg.rlbench.scene_bounds,
             cfg.rlbench.camera_resolution)
     elif cfg.method.name == 'C2FARM+QTE':

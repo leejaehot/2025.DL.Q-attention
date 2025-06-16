@@ -1,6 +1,6 @@
 # Attention-driven Robotic Manipulation (ARM)
 
-🙇‍♂️ **This code is adapted from ARM by Stephen James et al. Some parts have been modified for our use.**
+🙇‍♂️ **This code is adapted from ([ARM repo](https://github.com/stepjam/ARM)) by Stephen James et al. Some parts have been modified for our use.**
 
 Codebase of Q-attention, coarse-to-fine Q-attention, and other variants. Code from the following papers:
 

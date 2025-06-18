@@ -6,7 +6,6 @@ Codebase of Q-attention. Code from the following paper:
 
 - [Q-attention: Enabling Efficient Learning for Vision-based Robotic Manipulation](https://arxiv.org/abs/2105.14829) (ARM system)
 
-
 ## Installation
 
 Using the [YARR framework](https://github.com/stepjam/YARR) and evaluated on [RLBench](https://github.com/stepjam/RLBench#running-headless) 1.1.0.
@@ -16,8 +15,8 @@ Install all of the project requirements:
 # Create conda environment
 conda create -n arm python=3.8
 
-# Install PyTorch 2.0. Go to PyTorch website to install other versions.
-conda install pytorch=2.0 torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
+# Install PyTorch 2.4.0 Go to PyTorch website to install other versions.
+conda install pytorch==2.4.0 torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
 # Install YARR
 pip install git+https://github.com/stepjam/YARR.git

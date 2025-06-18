@@ -60,18 +60,8 @@ python dataset_generator.py --save_path=/mnt/my/save/dir --tasks=take_lid_off_sa
 ```
 
 
-Experiments are launched via [Hydra](https://hydra.cc/). To start training **C2F-ARM** on the 
+Experiments are launched via [Hydra](https://hydra.cc/). To start training **ARM** on the 
 **take_lid_off_saucepan** task with the default parameters on **gpu 0**:
 ```bash
-python launch.py method=C2FARM rlbench.task=take_lid_off_saucepan rlbench.demo_path=/mnt/my/save/dir framework.gpu=0
-```
-
-To launch **C2F-ARM+LPR**:
-```bash
-python launch.py method=LPR rlbench.task=take_lid_off_saucepan rlbench.demo_path=/mnt/my/save/dir framework.gpu=0
-```
-
-To launch **C2F-ARM+QTE**:
-```bash
-python launch.py method=QTE rlbench.task=take_lid_off_saucepan rlbench.demo_path=/mnt/my/save/dir framework.gpu=0
+python launch.py method=ARM rlbench.task=take_lid_off_saucepan rlbench.demo_path=/mnt/my/save/dir framework.gpu=0
 ```

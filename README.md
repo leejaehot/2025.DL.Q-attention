@@ -15,7 +15,7 @@ Install all of the project requirements:
 # Create conda environment
 conda create -n arm python=3.8
 
-# Install PyTorch 2.4.0 Go to PyTorch website to install other versions.
+# Install PyTorch 2.4.0 Go to PyTorch website to install other versions. Some codes can be deprecated.
 conda install pytorch==2.4.0 torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia
 
 # Install YARR

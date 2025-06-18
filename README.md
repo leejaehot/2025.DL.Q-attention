@@ -14,7 +14,7 @@ Codebase of Q-attention, coarse-to-fine Q-attention, and other variants. Code fr
 
 ## Installation
 
-ARM is trained using the **YARR framework** and evaluated on **RLBench** 1.1.0.
+Using the [YARR framework](https://github.com/stepjam/YARR) and evaluated on [RLBench](https://github.com/stepjam/RLBench#running-headless) 1.1.0.
 
 Install all of the project requirements:
 ```bash

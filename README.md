@@ -2,14 +2,9 @@
 
 🙇‍♂️ **This code is adapted from ([ARM repo](https://github.com/stepjam/ARM)) by Stephen James et al. Some parts have been modified for our use.**
 
-Codebase of Q-attention, coarse-to-fine Q-attention, and other variants. Code from the following papers:
+Codebase of Q-attention. Code from the following paper:
 
 - [Q-attention: Enabling Efficient Learning for Vision-based Robotic Manipulation](https://arxiv.org/abs/2105.14829) (ARM system)
-- [Coarse-to-Fine Q-attention: Efficient Learning for Visual Robotic Manipulation via Discretisation](https://arxiv.org/abs/2106.12534) (C2F-ARM system)
-- [Coarse-to-Fine Q-attention with Learned Path Ranking](https://arxiv.org/abs/2204.01571) (C2F-ARM+LPR system)
-- [Coarse-to-Fine Q-attention with Tree Expansion](https://arxiv.org/abs/2204.12471)
-
-![task grid image missing](readme_files/variants.png)
 
 
 ## Installation

@@ -30,7 +30,7 @@ framework:
     seeds: 1 # 학습 시 사용할 seed
 
 defaults:
-    - method: C2FARM+QTE # 사용할 메서드
+    - method: ARM # 사용할 메서드
 
 hydra:
     run:

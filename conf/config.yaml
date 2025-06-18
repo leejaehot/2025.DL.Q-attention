@@ -11,7 +11,7 @@ replay:
     batch_size: 128 # 배치 크기
     timesteps: 1 # 경험 수집 시간
     prioritisation: True # 우선순위 기반 경험 샘플링 사용 여부
-    use_disk: False # 경험 저장 장치 사용 여부
+    use_disk: True # 경험 저장 장치 사용 여부
     path: '/tmp/arm_test/replay'  # Only used when use_disk is True.
 
 framework:
